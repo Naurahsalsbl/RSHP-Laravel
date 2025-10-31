@@ -1,0 +1,95 @@
+/* admin.css */
+
+/* Reset dan font */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f9;
+}
+
+/* Header halaman */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Kontainer konten */
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Judul halaman */
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Tabel */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Baris ganjil dan genap */
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Hover efek baris */
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Tombol */
+.btn {
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.btn-edit {
+    background-color: #2196F3;
+}
+
+.btn-delete {
+    background-color: #f44336;
+}
+
+.btn-add {
+    background-color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    table th, table td {
+        padding: 8px;
+    }
+    .container {
+        padding: 15px;
+    }
+}

@@ -16,7 +16,10 @@ class User extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
+     * 
      */
+    protected $primaryKey = 'iduser';
+    protected $table = 'user';
     protected $fillable = [
         'name',
         'email',
@@ -41,4 +44,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role()
+    {
+        return $this->hasMany(Role::class, 'iduser', 'iduser');
+    }
+
+    public function roleuser()
+    {
+        return $this->hasMany(RoleUser::class, 'iduser', 'iduser');
+    }
+
 }

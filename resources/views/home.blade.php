@@ -1,11 +1,37 @@
-@extends('main')
-
-@section('title', 'Home')
+@extends('layouts.app')
 
 @section('content')
-    <section id="home">
-        <h2>Selamat Datang di RSHP Universitas Airlangga</h2>
-        <p>Rumah Sakit Hewan dibentuk di Fakultas Kedokteran Hewan Universitas Airlangga secara resmi berdiri pada tanggal 1 Januari 1972 berdasarkan SK Menteri Pendidikan dan Kebudayaan Republik Indonesia . Saat itu masih berupa klinik hewan yang menjadi bagian dari Departemen Klinik Veteriner, dimana klinik hewan ini juga menjadi wahana belajar mahasiswa Fakultas Kedokteran Hewan baik program S1 Kedokteran Hewan maupun Program Profesi Dokter Hewan atau lebih dikenal sebagai program Ko-Asistensi.</p>
-        <img src="{{ asset('images/rshp.jpeg') }}" alt="RSHP Universitas Airlangga">
-    </section>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Dashboard') }} - {{ session('user_name') }}</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    {{ __('You are logged in!') }} {{ session('user_role_name') }}
+
+                     <div class="mt-4">
+                    <div class="row">
+                        <div class="col-md-12 mb-2">
+                            <a href="{{ route('admin.jenis-hewan.index') }}" class="btn btn-primary btn-block">
+                                <i class="fas fa-paw"></i> Jenis Hewan
+                            </a>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <a href="{{ route('admin.pemilik.index') }}" class="btn btn-success btn-block">
+                                <i class="fas fa-users"></i> Pemilik
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

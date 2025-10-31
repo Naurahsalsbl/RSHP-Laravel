@@ -14,15 +14,17 @@ use App\Http\Controllers\Admin\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Admin\DashboardAdminController;
-use App\Http\Controllers\ResepsionisController;
+use App\Http\Controllers\Resepsionis\DashboardResepsionisController;
+use App\Http\Controllers\Dokter\DashboardDokterController;
+use App\Http\Controllers\Perawat\DashboardPerawatController;
+use App\Http\Controllers\Pemilik\DashboardPemilikController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/cek-koneksi', [HomeController::class, 'cekKoneksi'])->name('cek-koneksi');
-
+Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/struktur', [HomeController::class, 'struktur'])->name('struktur');
 Route::get('/layanan', [HomeController::class, 'layanan'])->name('layanan');
 Route::get('/visi', [HomeController::class, 'visi'])->name('visi');
-Route::get('/login', [HomeController::class, 'login'])->name('login');
 
 Route::resource('jenis-hewan', JenisHewanController::class);
 Route::resource('pemilik', PemilikController::class);
@@ -36,29 +38,31 @@ Route::resource('user', UserController::class);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/reset-password', function () {
-    $user = User::find(6); // ganti 6 sesuai ID user-mu
-
-    if ($user) {
-        $user->password = Hash::make('123456'); // password baru
-        $user->save();
-        return "Password user ID 6 berhasil di-reset menjadi '123456'";
-    } else {
-        return "User dengan ID 6 tidak ditemukan";
-    }
-});
-
 
 // Route untuk masing-masing role
-Route::middleware(['isAdministrator'])->group(function () {
+Route::middleware(['auth','isAdministrator'])->group(function () {
     Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/jenis-hewan', [App\Http\Controllers\JenisHewanController::class, 'index'])->name('admin.jenis-hewan.index');
-    Route::get('/admin/pemilik', [App\Http\Controllers\PemilikController::class, 'index'])->name('admin.pemilik.index');
+    Route::get('/admin/jenis-hewan', [JenisHewanController::class, 'index'])->name('admin.jenis-hewan.index');
+    Route::get('/admin/pemilik', [PemilikController::class, 'index'])->name('admin.pemilik.index');
 
 });
 
-Route::middleware(['auth', 'isResepsionis'])->group(function () {
-    Route::get('/resepsionis/dashboard', [ResepsionisController::class, 'index'])->name('resepsionis.dashboard');
+Route::middleware(['auth','isResepsionis'])->group(function () {
+    Route::get('/resepsionis/dashboard', [DashboardResepsionisController::class, 'index'])->name('resepsionis.dashboard');
+
+});
+
+Route::middleware(['auth','isDokter'])->group(function () {
+    Route::get('/dokter/dashboard', [DashboardDokterController::class, 'index'])->name('dokter.dashboard');
+    
+});
+
+Route::middleware(['auth','isPerawat'])->group(function () {
+    Route::get('/perawat/dashboard', [DashboardPerawatController::class, 'index'])->name('perawat.dashboard');
+    
+});
+
+Route::middleware(['auth','isPemilik'])->group(function () {
+    Route::get('/pemilik/dashboard', [DashboardPemilikController::class, 'index'])->name('pemilik.dashboard');
+    
 });

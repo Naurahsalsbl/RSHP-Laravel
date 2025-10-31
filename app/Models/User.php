@@ -20,10 +20,12 @@ class User extends Authenticatable
      */
     protected $primaryKey = 'iduser';
     protected $table = 'user';
+    public $incrementing = true;
     protected $fillable = [
         'name',
         'email',
         'password',
+        'idrole',
     ];
 
     /**

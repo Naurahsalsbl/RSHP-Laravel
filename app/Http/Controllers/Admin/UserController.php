@@ -13,4 +13,6 @@ class UserController extends Controller
     $user = Userrshp::all();
     return view('admin.user.index', compact('user'));
 }
+
+
 }

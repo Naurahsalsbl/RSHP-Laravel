@@ -20,7 +20,6 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -96,11 +95,9 @@ class LoginController extends Controller
             return redirect()->route('perawat.dashboard')->with('success', 'Login berhasil!');
         case '4':
             return redirect()->route('resepsionis.dashboard')->with('success', 'Login berhasil!');
-        default:
+        case '5':
             return redirect()->route('pemilik.dashboard')->with('success', 'Login berhasil!');
     }
-
-    return redirect()->intended('/home')->with('success', 'Login berhasil!');
     }
 
     public function logout(Request $request)

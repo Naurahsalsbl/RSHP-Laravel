@@ -6,40 +6,44 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-        $this->middleware('auth');
+        // Semua method butuh login kecuali yang public
+        $this->middleware('auth')->except(['home', 'struktur', 'layanan', 'visi']);
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * Halaman utama (root)
      */
-    public function index()
-    {
-        return view('home');
-    }
-
     public function home()
-{
-    if (auth()->check()) {
-        switch (auth()->user()->idrole) {
-            case 1: return redirect()->route('admin.dashboard');
-            case 2: return redirect()->route('dokter.dashboard');
-            case 3: return redirect()->route('perawat.dashboard');
-            case 4: return redirect()->route('resepsionis.dashboard');
-            case 5: return redirect()->route('pemilik.dashboard');
-        }
+    {   
+        // Kalau belum login
+        return view('home'); // tampilkan halaman home umum (tanpa login)
     }
 
-    // kalau belum login → ke login
-    return redirect()->route('login');
-}
+    /**
+     * Halaman tambahan (public)
+     */
+    public function struktur()
+    {
+        return view('struktur');
+    }
 
+    public function layanan()
+    {
+        return view('layanan');
+    }
+
+    public function visi()
+    {
+        return view('visi');
+    }
+
+    /**
+     * Cek koneksi ke database
+     */
+    public function cekKoneksi()
+    {
+        return response()->json(['status' => 'OK', 'message' => 'Koneksi ke database berhasil']);
+    }
 }

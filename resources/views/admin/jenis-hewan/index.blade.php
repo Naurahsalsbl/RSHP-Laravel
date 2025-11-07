@@ -15,8 +15,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($jenisHewan as $jenis)
+            @foreach($jenisHewan as $index => $jenis)
                 <tr>
+                    <td>{{ $index + 1 }}</td>
                     <td>{{ $jenis->idjenis_hewan }}</td>
                     <td>{{ $jenis->nama_jenis_hewan }}</td>
                     <td>

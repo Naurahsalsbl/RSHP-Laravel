@@ -9,6 +9,7 @@ class DashboardDokterController extends Controller
 {
     public function index()
     {
+        $dataPasien = Pasien::all();
         return view('Dokter.dashboard');
     }
 }

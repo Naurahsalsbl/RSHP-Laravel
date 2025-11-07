@@ -15,15 +15,16 @@ class isAdministrator
             return redirect()->route('login');
         }
 
-        // Ambil role langsung dari tabel user
-        $userRole = Auth::user()->idrole;
+        // Ambil relasi role user dari model User
+        $user = Auth::user();
+        $roleUser = $user->roleUser()->first();
 
-        // Kalau role = 1 (Administrator), izinkan lanjut
-        if ($userRole == 1) {
+        // Jika user punya role dan idrole = 1 (Administrator)
+        if ($roleUser && $roleUser->idrole == 1) {
             return $next($request);
         }
 
-        // Kalau bukan admin, lempar balik ke login
-         return abort(403, 'Anda tidak memiliki akses sebagai Administrator.');
+        // Kalau bukan admin, tampilkan pesan akses ditolak
+        return abort(403, 'Anda tidak memiliki akses sebagai Administrator.');
     }
 }
